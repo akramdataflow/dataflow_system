@@ -1,5 +1,3 @@
-# dataflow_system
-
 import streamlit as st
 import pandas as pd
 
@@ -29,5 +27,3 @@ if customer_data is not None and not customer_data.empty:
     st.dataframe(customer_data)
 else:
     st.warning("No customer data found.")
-
-اريد خيار حذف فاتوره اعمادا على رقمها وتحذف من جدول الدخل والزباءن

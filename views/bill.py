@@ -3,7 +3,10 @@ from datetime import datetime
 import pandas as pd
 import os
 
-data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+
+# Define file paths
+customer_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+income_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\incume data.csv'
 
 def get_last_order_number(data_path):
     try:
@@ -51,8 +54,27 @@ def save_to_csv(order_number, name, Domain, Description, Request_type, Duration_
     df.set_index('order number', inplace=True)
     df.to_csv(data_path, index=True, mode='a', header=False, encoding='utf-8-sig')
 
+def save_income_to_csv(name, Domain, amount_received, discount, creation_time, price):
+    # Check if income data file exists; if not, create it with headers
+    if not os.path.exists(income_data_path):
+        income_headers = ['name', 'domain', 'amount_received', 'discount', 'creation_time', 'price']
+        pd.DataFrame(columns=income_headers).to_csv(income_data_path, index=False, encoding='utf-8-sig')
+
+    # Create DataFrame for income data
+    income_df = pd.DataFrame([{
+        'name': name,
+        'domain': Domain,
+        'amount_received': amount_received,
+        'discount': discount,
+        'creation_time': creation_time,
+        'price': price
+    }])
+
+    # Append the data to the income CSV
+    income_df.to_csv(income_data_path, mode='a', header=False, index=False, encoding='utf-8-sig')
+
 # احصل على رقم الطلب الحالي وزيادته
-current_order_number = get_last_order_number(data_path)
+current_order_number = get_last_order_number(customer_data_path)
 order_number = current_order_number + 1
 
 st.set_page_config(page_title='Dataflow', layout='wide')
@@ -87,9 +109,14 @@ remaining_amount = price - amount_received - discount
 bill_type = st.selectbox('Bill type', ['Invoice', 'Receipt'])
 
 # عند النقر على زر الإرسال
-submet = st.button('Submit')
+submit = st.button('Submit')
 
-if submet:
+if submit:
     # حفظ البيانات المجمعة في ملف CSV
     save_to_csv(order_number, name, Domain, Description, Request_type, Duration_of_completion, Payment_type, price, discount, bill_type, amount_received, remaining_amount)
-    st.success('Order saved successfully!')
+    
+    # Save relevant data to the income data file
+    creation_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Capture creation time for income
+    save_income_to_csv(name, Domain, amount_received, discount, creation_time, price)
+
+    st.success('Order saved successfully! Data added to income database!')
