@@ -32,7 +32,7 @@ def save_to_csv(data_path, name, Description, Amount):
 # Streamlit inputs
 name = st.text_input('Name')
 Description = st.text_area('Describe what the payment is for')
-Amount = st.number_input('Amount', step=1000)
+Amount = st.number_input('Amount', step=1000, min_value=0)
 
 # Submit button
 Submit = st.button('Submit')

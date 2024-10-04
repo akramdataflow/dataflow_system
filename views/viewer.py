@@ -1,13 +1,13 @@
 import streamlit as st
 import pandas as pd
 
-
-
-# Define the file path for the customer data
+# Define the file paths for the data
 customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
+income_data_path = r'..\dataflow_system\data\incume data.csv'
+amount_data_path = r'..\dataflow_system\data\Amount data.csv'
 
-# Load the customer data
-def load_customer_data(data_path):
+# Load the data from CSV files
+def load_data(data_path):
     try:
         df = pd.read_csv(data_path, encoding='utf-8-sig')
         return df
@@ -16,14 +16,38 @@ def load_customer_data(data_path):
         return None
 
 # Set up the Streamlit application
-st.set_page_config(page_title='Customer Data', layout='wide')
-st.title('Customer Data')
+st.set_page_config(page_title='Data Management', layout='wide')
+st.title('Data Management System')
 
-# Load the customer data
-customer_data = load_customer_data(customer_data_path)
+# Load the data
+customer_data = load_data(customer_data_path)
+income_data = load_data(income_data_path)
+amount_data = load_data(amount_data_path)
 
-# Display the customer data if it was loaded successfully
-if customer_data is not None and not customer_data.empty:
-    st.dataframe(customer_data)
-else:
-    st.warning("No customer data found.")
+# Sidebar navigation
+table_selection = st.sidebar.selectbox(
+    'Select a table to view:',
+    options=['Customer Data', 'Income Data', 'Amount Data']
+)
+
+# Display the selected table
+if table_selection == 'Customer Data':
+    if customer_data is not None and not customer_data.empty:
+        st.subheader('Customer Data')
+        st.dataframe(customer_data)
+    else:
+        st.warning("No customer data found.")
+
+elif table_selection == 'Income Data':
+    if income_data is not None and not income_data.empty:
+        st.subheader('Income Data')
+        st.dataframe(income_data)
+    else:
+        st.warning("No income data found.")
+
+elif table_selection == 'Amount Data':
+    if amount_data is not None and not amount_data.empty:
+        st.subheader('Amount Data')
+        st.dataframe(amount_data)
+    else:
+        st.warning("No amount data found.")
