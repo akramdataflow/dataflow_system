@@ -4,8 +4,10 @@ import pandas as pd
 import os
 
 
+base_dir = os.path.dirname(__file__)
+
 # Define file paths
-customer_data_path = r'data\coustumer data.csv'
+customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
 income_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\incume data.csv'
 
 def get_last_order_number(data_path):
@@ -77,7 +79,6 @@ def save_income_to_csv(name, Domain, amount_received, discount, creation_time, p
 current_order_number = get_last_order_number(customer_data_path)
 order_number = current_order_number + 1
 
-st.set_page_config(page_title='Dataflow', layout='wide')
 st.title('Customers Bill')
 
 col1, col2 = st.columns(2)
