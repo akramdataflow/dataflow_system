@@ -13,6 +13,9 @@ def get_last_order_number(data_path):
     df = pd.read_csv(data_path)
     return df['order number'].max()
 
+def get_first_order_number(data_path):
+    df = pd.read_csv(data_path)
+    return df['order number'].min()
 
 def get_invoice_data(data_path, order_number):
     df = pd.read_csv(data_path)
@@ -29,9 +32,12 @@ def update_invoice_data(data_path, order_number, updated_data):
     df.loc[df['order number'] == order_number, updated_data.keys()] = updated_data.values()
     df.to_csv(data_path, index=False, encoding='utf-8-sig')
 
-
+def delet_invoice_data(data_path, order_number):
+    df = pd.read_csv(data_path)
+    df = df.drop(df[df['order number'] == order_number].index)
+    df.to_csv(data_path, index=False, encoding='utf-8-sig')
 # Streamlit inputs
-order_number = st.number_input('Order number', min_value=1, max_value=get_last_order_number(data_path), step=1)
+order_number = st.number_input('Order number', min_value=get_first_order_number(data_path), max_value=get_last_order_number(data_path), step=1)
 
 # Fetch invoice data from the CSV
 invoice_data = get_invoice_data(data_path, order_number)
@@ -84,3 +90,7 @@ if invoice_data is not None:
         st.success('Invoice updated successfully!')
 else:
     st.warning("No invoice found for the provided order number.")
+
+
+if st.button('Delet Invoice'):
+    delet_invoice_data(data_path, order_number)

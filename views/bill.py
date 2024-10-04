@@ -111,6 +111,10 @@ remaining_amount = price - amount_received - discount
 
 bill_type = st.selectbox('Bill type', ['Invoice', 'Receipt'])
 
+
+st.header(f'order number : {order_number}')
+
+
 # عند النقر على زر الإرسال
 submit = st.button('Submit')
 
