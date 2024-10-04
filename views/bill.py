@@ -8,7 +8,7 @@ base_dir = os.path.dirname(__file__)
 
 # Define file paths
 customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
-income_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\incume data.csv'
+income_data_path = r'..\dataflow_system\data\incume data.csv'
 
 def get_last_order_number(data_path):
     try:
@@ -54,7 +54,9 @@ def save_to_csv(order_number, name, Domain, Description, Request_type, Duration_
 
     # حفظ البيانات في CSV، مع تعيين order number كفهرس
     df.set_index('order number', inplace=True)
-    df.to_csv(data_path, index=True, mode='a', header=False, encoding='utf-8-sig')
+
+    # استخدم المتغير customer_data_path بدلاً من data_path
+    df.to_csv(customer_data_path, index=True, mode='a', header=False, encoding='utf-8-sig')
 
 def save_income_to_csv(name, Domain, amount_received, discount, creation_time, price):
     # Check if income data file exists; if not, create it with headers
