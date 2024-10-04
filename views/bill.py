@@ -5,7 +5,7 @@ import os
 
 
 # Define file paths
-customer_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+customer_data_path = r'data\coustumer data.csv'
 income_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\incume data.csv'
 
 def get_last_order_number(data_path):
