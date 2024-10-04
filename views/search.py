@@ -6,7 +6,7 @@ import os
 st.set_page_config(layout='wide')
 
 # Define the file paths
-data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+data_path = r'..\dataflow_system\data\coustumer data.csv'
 
 
 def get_last_order_number(data_path):

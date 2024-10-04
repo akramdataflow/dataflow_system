@@ -7,7 +7,7 @@ import os
 st.set_page_config(layout='wide')
 
 # Define the file path
-data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\Amount data.csv'
+data_path = r'..\dataflow_system\data\Amount data.csv'
 
 def save_to_csv(data_path, name, Description, Amount):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

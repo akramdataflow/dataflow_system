@@ -4,7 +4,7 @@ import pandas as pd
 
 
 # Define the file path for the customer data
-customer_data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
 
 # Load the customer data
 def load_customer_data(data_path):
