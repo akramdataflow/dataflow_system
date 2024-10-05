@@ -1,6 +1,1 @@
-﻿order number,costumer name,dis,Customer's field of work,price,Creation time,order type,bill type,Completion time,payment method,discount,amount received,remaining amount
-2,علي عدي ,مبرمج العاب ,برمجه ,1100,2024-10-04 19:44:22,"1-لوغو+هويه بصريه 
-2-سستم خاص (حقول الاسم +مبلغ المال المستلم +حقل التسليم +حقل الوصول + حقل نوع الاعاب )
-",Invoice,2024-10-20,Direct payment,0,325,775
-3,احمد البيضاني,مدرب ومدير قاعه,   مدرب,500,2024-10-04 20:48:40,1-سستم خاص بلاشتراك(اسم المشترك+المبلغ المستلم+حقل يوم الاشتراك +حقل يوم الانتهاء),Invoice,2024-10-09,Direct payment,0,400,100
-4,كرار ستار,عقاري,,0,2024-10-04 21:27:28,,Invoice,2024-10-04,Direct payment,0,0,0
+order number,costumer name,dis,Customer's field of work,price,Creation time,order type,bill type,Completion time,payment method,discount,amount received,remaining amount

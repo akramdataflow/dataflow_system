@@ -1,29 +1,14 @@
 import pandas as pd
 
-# # مسار الملف
-# data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv'
+# Define the path to your CSV file
+file_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\Amount data.csv'
 
-# # قراءة البيانات
-# df = pd.read_csv(data_path)
+# Create an empty DataFrame with the same columns
+columns = ['current_time','name','Description','Amount']
 
-# # تحقق مما إذا كان DataFrame يحتوي على أي صفوف
-# if not df.empty:
-#     # حذف السطر الأول فقط إذا كان موجودًا
-#     if 0 in df.index:
-#         df = df.drop(index=0)
-#     else:
-#         print("السطر الأول غير موجود.")
+empty_df = pd.DataFrame(columns=columns)
 
-#     # إعادة تعيين الفهارس
-#     df.reset_index(drop=True, inplace=True)
+# Save the empty DataFrame to the CSV file (this will clear the file)
+empty_df.to_csv(file_path, index=False)
 
-#     # حفظ الملف بعد حذف السطر الأول
-#     df.to_csv(data_path, index=False, encoding='utf-8-sig')
-#     print("تم حذف السطر الأول بنجاح.")
-# else:
-#     print("DataFrame فارغ، لا يوجد صفوف لحذفها.")
-
-data_path = r'C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\incume data.csv'
-
-headers = ['name', 'domain', 'amount_received', 'discount', 'creation_time', 'price']
-pd.DataFrame(columns=headers).to_csv(data_path, index=False, encoding='utf-8-sig')
+print(f"Data has been removed from {file_path}.")
