@@ -6,6 +6,8 @@ import os
 
 base_dir = os.path.dirname(__file__)
 
+st.set_page_config(layout="wide")
+
 # Define file paths
 customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
 income_data_path = r'..\dataflow_system\data\incume data.csv'
