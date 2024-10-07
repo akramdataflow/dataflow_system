@@ -31,3 +31,5 @@ else:
     st.warning("No customer data found.")
 
 اريد خيار حذف فاتوره اعمادا على رقمها وتحذف من جدول الدخل والزباءن
+
+C:\Users\rf\Desktop\dataflow\dataflow_system\dataflow_system\data\coustumer data.csv

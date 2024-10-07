@@ -33,9 +33,10 @@ def update_invoice_data(data_path, order_number, updated_data):
     df.to_csv(data_path, index=False, encoding='utf-8-sig')
 
 def delet_invoice_data(data_path, order_number):
-    df = pd.read_csv(data_path)
-    df = df.drop(df[df['order number'] == order_number].index)
-    df.to_csv(data_path, index=False, encoding='utf-8-sig')
+    df1 = pd.read_csv(data_path)
+    df1 = df.drop(df[df['order number'] == order_number].index)
+    df1.to_csv(data_path, index=False, encoding='utf-8-sig')
+    
 # Streamlit inputs
 order_number = st.number_input('Order number', min_value=get_first_order_number(data_path), max_value=get_last_order_number(data_path), step=1)
 
