@@ -76,13 +76,6 @@ creation_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 if st.button('Submit'):
     # Insert data into customer_data
     add_data_to_customer(data, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number)
-    
-    # Get the order number of the last inserted customer
-    con = sqlite3.connect(data)
-    cur = con.cursor()
-    cur.execute("SELECT last_insert_rowid()")
-    order_number = cur.fetchone()[0]+1
-    con.close()
 
     # Automatically insert data into income_data without requiring extra input
     add_data_to_income(data, name, domain, amount_received, discount, creation_time, price, phone_number)
