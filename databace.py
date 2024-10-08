@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS Amount_data (
 # SQL query to create the customer_data table
 query_customer = """
 CREATE TABLE IF NOT EXISTS customer_data (
-    order_number INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_name TEXT,
     domain TEXT,
     description TEXT,
