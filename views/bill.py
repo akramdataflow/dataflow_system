@@ -3,7 +3,6 @@ from datetime import datetime
 import sqlite3
 import os
 
-
 # Configure the layout of the page
 st.set_page_config(layout="wide")
 
@@ -11,18 +10,35 @@ st.set_page_config(layout="wide")
 data = r"..\dataflow_system\data\data.db"
 
 # Function to insert customer data into the SQLite database
-def add_data(data_path, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number):
+def add_data_to_customer(data_path, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number):
     con = sqlite3.connect(data_path)
     cur = con.cursor()
 
     # New data as a tuple
-    new_data = (name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number,)
+    new_data = (name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number)
 
     # Execute the insert query
     cur.execute(""" 
-    INSERT INTO customer_data (customer_name,domain,description,price,creation_time,order_type,completion_time,discount,amount_received,remaining_amount,phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", new_data)
+    INSERT INTO customer_data (customer_name, domain, description, price, creation_time, order_type, completion_time, discount, amount_received, remaining_amount, phone_number) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", new_data)
 
     # Commit the transaction and close the connection
+    con.commit()
+    con.close()
+
+# Function to insert income data into the SQLite database
+def add_data_to_income(data_path, name, domain, amount_received, discount, creation_time, price, phone_number):
+    con = sqlite3.connect(data_path)
+    cur = con.cursor()
+    
+    # New data as a tuple
+    new_data = (name, domain, amount_received, discount, creation_time, price, phone_number)
+
+    # Execute the insert query
+    cur.execute(""" 
+    INSERT INTO income_data (name, domain, amount_received, discount, creation_time, price, phone_number) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)""", new_data)
+
     con.commit()
     con.close()
 
@@ -58,6 +74,17 @@ creation_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 # Add button to save the data
 if st.button('Submit'):
+    # Insert data into customer_data
+    add_data_to_customer(data, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number)
     
-        add_data(data, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number)
-        st.success(f"Data for {name} added successfully!")
+    # Get the order number of the last inserted customer
+    con = sqlite3.connect(data)
+    cur = con.cursor()
+    cur.execute("SELECT last_insert_rowid()")
+    order_number = cur.fetchone()[0]+1
+    con.close()
+
+    # Automatically insert data into income_data without requiring extra input
+    add_data_to_income(data, name, domain, amount_received, discount, creation_time, price, phone_number)
+
+    st.success(f"Data for {name} added successfully, including income data!")

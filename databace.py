@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS Amount_data (
 # SQL query to create the customer_data table
 query_customer = """
 CREATE TABLE IF NOT EXISTS customer_data (
+    order_number INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_name TEXT,
     domain TEXT,
     description TEXT,
@@ -41,7 +42,15 @@ CREATE TABLE IF NOT EXISTS income_data (
     discount INTEGER,
     creation_time DATETIME NOT NULL,
     price INTEGER,
-    phone_number INTEGER
+    phone_number INTEGER,
+    FOREIGN KEY (order_number) REFERENCES customer_data(order_number),
+    FOREIGN KEY (name) REFERENCES customer_data(customer_name),
+    FOREIGN KEY (domain) REFERENCES customer_data(domain),
+    FOREIGN KEY (amount_received) REFERENCES customer_data(amount_received),
+    FOREIGN KEY (discount) REFERENCES customer_data(discount),
+    FOREIGN KEY (creation_time) REFERENCES customer_data(creation_time),
+    FOREIGN KEY (price) REFERENCES customer_data(price),
+    FOREIGN KEY (phone_number) REFERENCES customer_data(phone_number)
 )
 """
 

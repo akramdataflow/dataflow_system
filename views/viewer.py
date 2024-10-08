@@ -1,15 +1,15 @@
 import streamlit as st
+import sqlite3
 import pandas as pd
 
-# Define the file paths for the data
-customer_data_path = r'..\dataflow_system\data\coustumer data.csv'
-income_data_path = r'..\dataflow_system\data\incume data.csv'
-amount_data_path = r'..\dataflow_system\data\Amount data.csv'
+# Define the database path
+data_path = r'..\dataflow_system\data\data.db'
 
-# Load the data from CSV files
-def load_data(data_path):
+# Load data from SQLite database
+def load_data(query):
     try:
-        df = pd.read_csv(data_path, encoding='utf-8-sig')
+        with sqlite3.connect(data_path) as conn:
+            df = pd.read_sql_query(query, conn)
         return df
     except Exception as e:
         st.error(f"Error loading data: {e}")
@@ -20,9 +20,13 @@ st.set_page_config(page_title='Data Management', layout='wide')
 st.title('Data Management System')
 
 # Load the data
-customer_data = load_data(customer_data_path)
-income_data = load_data(income_data_path)
-amount_data = load_data(amount_data_path)
+customer_data_query = "SELECT * FROM customer_data"
+income_data_query = "SELECT * FROM income_data"
+amount_data_query = "SELECT * FROM Amount_data"
+
+customer_data = load_data(customer_data_query)
+income_data = load_data(income_data_query)
+amount_data = load_data(amount_data_query)
 
 # Sidebar navigation
 table_selection = st.sidebar.selectbox(

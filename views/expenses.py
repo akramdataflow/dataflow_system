@@ -1,43 +1,37 @@
 import streamlit as st
-import pandas as pd
+import sqlite3
 from datetime import datetime
-import os
-
 
 st.set_page_config(layout='wide')
 
-# Define the file path
-data_path = r'..\dataflow_system\data\Amount data.csv'
+# Define the database path
+data_path = r'..\dataflow_system\data\data.db'
 
-def save_to_csv(data_path, name, Description, Amount):
+# Connect to the SQLite database
+conn = sqlite3.connect(data_path)
+c = conn.cursor()
+
+# Function to add data to the database
+def add_data_amount(name, description, amount):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    # Check if the file exists
-    if not os.path.exists(data_path):
-        # Create the CSV file with the appropriate headers if it doesn't exist
-        headers = ['current_time', 'name', 'Description', 'Amount']
-        pd.DataFrame(columns=headers).to_csv(data_path, index=False, encoding='utf-8-sig')
-
-    # Create a new DataFrame with the new data
-    df = pd.DataFrame([{
-        'current_time': current_time,
-        'name': name,
-        'Description': Description,
-        'Amount': Amount
-    }])
-
-    # Append to the CSV file without writing headers again
-    df.to_csv(data_path, mode='a', header=False, index=False, encoding='utf-8-sig')
+    c.execute('''
+        INSERT INTO Amount_data (current_time, name, description, amount)
+        VALUES (?, ?, ?, ?)
+    ''', (current_time, name, description, amount))
+    conn.commit()
 
 # Streamlit inputs
 name = st.text_input('Name')
-Description = st.text_area('Describe what the payment is for')
-Amount = st.number_input('Amount', step=1000)
+description = st.text_area('Describe what the payment is for')
+amount = st.number_input('Amount', step=1000)
 
 # Submit button
-Submit = st.button('Submit')
+submit = st.button('Submit')
 
-# When Submit is clicked, save to CSV
-if Submit:
-    save_to_csv(data_path, name, Description, Amount)
+# When Submit is clicked, save to the database
+if submit:
+    add_data_amount(name, description, amount)
     st.success('Order saved successfully!')
+
+# Close the connection when done
+conn.close()
