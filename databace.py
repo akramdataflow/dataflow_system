@@ -54,10 +54,15 @@ CREATE TABLE IF NOT EXISTS income_data (
 )
 """
 
+query_representatives = '''CREATE TABLE IF NOT EXISTS representatives(name TEXT, 
+        comapany_name TEXT,
+        phone_number INTEGER, 
+        price INTEGER, 
+        date DATETIME)'''
+
 # Execute the queries
-cur.execute(query_amount)
-cur.execute(query_customer)
-cur.execute(query_income)
+cur.execute(query_representatives)
+
 
 # Commit the changes
 con.commit()
