@@ -22,12 +22,18 @@ viewer_page = st.Page(
     title='viewer',
 )
 
+dashboard_page = st.Page(
+    page = r'views\dashboard.py',
+    title='Dashboard',    
+)
+
 
 pg = st.navigation(
     {
         'Bill':[bill_page],
         'Company accounts':[expenses_page],
-        'edit':[viewer_page, search_page]
+        'edit':[viewer_page, search_page],
+        'dashboard':[dashboard_page]
     }
 )
 
