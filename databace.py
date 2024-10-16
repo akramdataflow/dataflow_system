@@ -61,6 +61,9 @@ query_representatives = '''CREATE TABLE IF NOT EXISTS representatives(name TEXT,
         date DATETIME)'''
 
 # Execute the queries
+cur.execute(query_amount)
+cur.execute(query_customer)
+cur.execute(query_income)
 cur.execute(query_representatives)
 
 
