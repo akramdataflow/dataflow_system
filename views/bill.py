@@ -7,7 +7,7 @@ import os
 st.set_page_config(layout="wide")
 
 # Define file paths
-data = r"..\dataflow_system\data\data.db"
+data = "../dataflow_system/data/data.db"
 
 # Function to insert customer data into the SQLite database
 def add_data_to_customer(data_path, name, domain, description, price, creation_time, request_type, duration_of_completion, discount, amount_received, remaining_amount, phone_number):
