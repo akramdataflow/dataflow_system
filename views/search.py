@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Connect to the SQLite database
 def get_db_connection():
-    return sqlite3.connect(r"data\data.db")
+    return sqlite3.connect("../dataflow_system/data/data.db")
 
 # Get the last and first order number from the database
 def get_order_numbers():
