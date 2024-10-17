@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore')
 st.set_page_config(page_title='udemy_courses_data', page_icon=':bar_chart:', layout='wide')
 
 # Connect to SQLite database and load data
-con = sqlite3.connect(r'data\data.db')
+con = sqlite3.connect("../dataflow_system/data/data.db")
 df = pd.read_sql_query('SELECT * FROM customer_data', con)
 con.close()
 
