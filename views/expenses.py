@@ -5,7 +5,7 @@ from datetime import datetime
 st.set_page_config(layout='wide')
 
 # Define the database path
-data_path = r'..\dataflow_system\data\data.db'
+data_path = "../dataflow_system/data/data.db"
 
 # Connect to the SQLite database
 conn = sqlite3.connect(data_path)
