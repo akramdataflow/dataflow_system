@@ -3,7 +3,7 @@ import sqlite3
 import pandas as pd
 
 # Define the database path
-data_path = r'..\dataflow_system\data\data.db'
+data_path = "../dataflow_system/data/data.db"
 
 # Load data from SQLite database
 def load_data(query):
